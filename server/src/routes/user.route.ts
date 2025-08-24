@@ -8,3 +8,5 @@ const authRouter=Router()
 authRouter.post("/register",registerUser)
 authRouter.post("/login",loginUser)
 authRouter.post("/logOut",logoutUser)
+
+export default authRouter;

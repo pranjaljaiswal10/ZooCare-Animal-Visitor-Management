@@ -1,0 +1,87 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  username String @unique
+  email    String @unique
+  password String
+  role User_role @default(VISITOR)
+}
+
+model Animal {
+  id   Int @id @default(autoincrement())
+  name String 
+  spicies String
+  age Int
+  sex String
+  health_Status HealthStatus
+}
+
+model Enclosure{
+  id Int @id @default(autoincrement())
+  name String
+  description String
+  capacity Int
+  currentOccupacy Int
+}
+
+model Visitor{
+  id Int @id @default(autoincrement())
+  name String
+  email String @unique()
+  phoneNumber Int
+  TicketNumber Int
+  EntryTime DateTime
+  ExitTime  DateTime
+}
+
+model Staff{
+  id Int @id @default(autoincrement())
+  Name String
+  email String @unique
+  phoneNumber Int
+  role Staff_role
+}
+
+model Ticket{
+  id Int @id @default(autoincrement())
+  ticketId Int
+  Date DateTime
+  Price Int
+}
+
+enum HealthStatus{
+HEALTHY
+SICK
+INJURED
+UNDER_OBSERVATION
+RECOVERING
+QUARANTINED
+}
+
+enum Staff_role{
+   ADMIN
+   ZOOKEEPER
+   VETERINARIAN
+   SECURITY
+
+}
+
+enum User_role{
+  ADMIN
+  STAFF
+  VISITOR
+}

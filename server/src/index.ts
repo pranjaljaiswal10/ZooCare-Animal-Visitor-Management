@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import morgan from "morgan";
 import helmet from "helmet"
 import cors from "cors"
+import authRouter from "./routes/user.route";
 
 dotenv.config({
     path:"./.env"
@@ -18,6 +19,12 @@ app.use(cors({
 }))
 app.use(morgan(morganFormat))
 app.use(helmet())
+
+app.use("api/v1/users",authRouter)
+
+app.use("*",(err,req,res,next)=>{
+    console.log(err.stack)
+})
 
 const port=process.env.PORT || 4000;
 
